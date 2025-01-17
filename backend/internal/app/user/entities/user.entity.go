@@ -9,6 +9,7 @@ import (
 
 type UserEntity struct {
 	ID        *uint
+	UserName  string
 	Email     string
 	Password  *string
 	CreatedAt *time.Time
@@ -32,6 +33,13 @@ func (u *UserEntity) ValidateEmail() error {
 		return user_errors.ErrInvalidEmail
 	}
 
+	return nil
+}
+
+func (u *UserEntity) ValidateUserName() error {
+	if len(u.UserName) < 4 {
+		return user_errors.ErrShortUserName
+	}
 	return nil
 }
 
@@ -65,6 +73,10 @@ func (u *UserEntity) Validate() error {
 		return err
 	}
 
+	if err := u.ValidateUserName(); err != nil {
+		return err
+	}
+
 	if err := u.ValidatePassword(); err != nil {
 		return err
 	}
@@ -85,6 +97,10 @@ func (u *UserEntity) ValidateWitoutId() error {
 		return err
 	}
 
+	if err := u.ValidateUserName(); err != nil {
+		return err
+	}
+
 	if err := u.ValidatePassword(); err != nil {
 		return err
 	}
@@ -100,13 +116,14 @@ func (u *UserEntity) ValidateWitoutId() error {
 	return nil
 }
 
-func CreateUser(ID uint, Email string, Password string) (*UserEntity, error) {
+func CreateUser(ID uint, Email string, UserName string, Password string) (*UserEntity, error) {
 
 	curretTime := time.Now()
 
 	user := UserEntity{
 		ID:        &ID,
 		Email:     Email,
+		UserName:  UserName,
 		Password:  &Password,
 		CreatedAt: &curretTime,
 		UpdatedAt: &curretTime,
@@ -120,13 +137,14 @@ func CreateUser(ID uint, Email string, Password string) (*UserEntity, error) {
 	return &user, nil
 }
 
-func CreateWithoutId(Email string, Password string) (*UserEntity, error) {
+func CreateWithoutId(Email string, UserName string, Password string) (*UserEntity, error) {
 
 	curretTime := time.Now()
 
 	user := UserEntity{
 		ID:        nil,
 		Email:     Email,
+		UserName:  UserName,
 		Password:  &Password,
 		CreatedAt: &curretTime,
 		UpdatedAt: &curretTime,
