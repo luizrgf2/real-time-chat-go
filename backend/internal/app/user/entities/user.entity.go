@@ -92,7 +92,7 @@ func (u *UserEntity) Validate() error {
 	return nil
 }
 
-func (u *UserEntity) ValidateWitoutId() error {
+func (u *UserEntity) ValidateWithoutId() error {
 	if err := u.ValidateEmail(); err != nil {
 		return err
 	}
@@ -150,7 +150,7 @@ func CreateWithoutId(Email string, UserName string, Password string) (*UserEntit
 		UpdatedAt: &curretTime,
 	}
 
-	err := user.ValidateWitoutId()
+	err := user.ValidateWithoutId()
 	if err != nil {
 		return nil, err
 	}
