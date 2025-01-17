@@ -8,11 +8,14 @@ import (
 )
 
 func TestCreateValidUser(t *testing.T) {
+	t.Parallel()
 	_, err := CreateUser(1, "test@email.com.br", "luizrgfg", "testePass123")
 	assert.Nil(t, err)
 }
 
 func TestCreateUserWithInvalidUsername(t *testing.T) {
+	t.Parallel()
+
 	_, err := CreateUser(1, "test@email.com.br", "l", "testePass123")
 	assert.ErrorIs(t, err, user_errors.ErrShortUserName)
 
@@ -21,11 +24,15 @@ func TestCreateUserWithInvalidUsername(t *testing.T) {
 }
 
 func TestCreateValidUserWithoutId(t *testing.T) {
+	t.Parallel()
+
 	_, err := CreateWithoutId("test@email.com.br", "luizrgfg", "testePass123")
 	assert.Nil(t, err)
 }
 
 func TestCreateUserWithInvalidEmail(t *testing.T) {
+	t.Parallel()
+
 	_, err := CreateUser(1, "invalid", "luizrgfg", "testPass123")
 	assert.ErrorIs(t, err, user_errors.ErrInvalidEmail)
 
@@ -34,6 +41,8 @@ func TestCreateUserWithInvalidEmail(t *testing.T) {
 }
 
 func TestCreateUserWithEmptyEmail(t *testing.T) {
+	t.Parallel()
+
 	_, err := CreateUser(1, "", "luizrgfg", "testPass123")
 	assert.ErrorIs(t, err, user_errors.ErrEmptyEmail)
 
@@ -42,6 +51,8 @@ func TestCreateUserWithEmptyEmail(t *testing.T) {
 }
 
 func TestCreateUserWithInvalidPassword(t *testing.T) {
+	t.Parallel()
+
 	_, err := CreateUser(1, "test@email.com.br", "luizrgfg", "invalid")
 	assert.ErrorIs(t, err, user_errors.ErrShortPassword)
 	_, err = CreateWithoutId("test@email.com.br", "luizrgfg", "invalid")
