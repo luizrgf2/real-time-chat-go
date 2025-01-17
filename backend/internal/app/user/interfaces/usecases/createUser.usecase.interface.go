@@ -1,4 +1,4 @@
-package interfaces_usecases
+package user_interfaces_usecases
 
 type CreateUserUseCaseInput struct {
 	Email    string `json:"email"`
