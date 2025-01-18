@@ -34,7 +34,7 @@ func (c *CreateUserUseCaseImp) checkIfExistsUserName(ctx context.Context) error 
 	return nil
 }
 
-func (c *CreateUserUseCaseImp) encryptPassword(ctx context.Context) (*string, error) {
+func (c *CreateUserUseCaseImp) encryptPassword() (*string, error) {
 	result, err := c.PassEncryptService.EncryptPassword(&c.data.Password)
 	if err != nil {
 		return nil, err
@@ -68,7 +68,7 @@ func (c *CreateUserUseCaseImp) Exec(input user_interfaces_usecases.CreateUserUse
 		return nil, isExistsUserName
 	}
 
-	encryptedPass, err := c.encryptPassword(ctx)
+	encryptedPass, err := c.encryptPassword()
 	if err != nil {
 		return nil, err
 	}
