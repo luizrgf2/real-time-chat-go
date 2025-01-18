@@ -1,5 +1,7 @@
 package user_interfaces_usecases
 
+import "time"
+
 type CreateUserUseCaseInput struct {
 	Email    string `json:"email"`
 	Username string `json:"username"`
@@ -7,10 +9,11 @@ type CreateUserUseCaseInput struct {
 }
 
 type CreateUserUseCaseOutput struct {
-	Email     string `json:"email"`
-	Username  string `json:"username"`
-	CreatedAt string `json:"createdAt"`
-	UpdatedAt string `json:"UpdatedAt"`
+	ID        uint      `json:"id"`
+	Email     string    `json:"email"`
+	Username  string    `json:"username"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"UpdatedAt"`
 }
 
 type ICreateUserUseCase interface {
