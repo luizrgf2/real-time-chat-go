@@ -15,3 +15,10 @@ func (p *PassEncryptServiceMock) EncryptPassword(passwordDecrypt *string) (*user
 	err := args.Error(1)
 	return value, err
 }
+
+func (p *PassEncryptServiceMock) ValidatePassword(passEncrypted *string, passwordDecrypted *string) (bool, error) {
+	args := p.Called(passEncrypted, passwordDecrypted)
+	value := args.Bool(0)
+	err := args.Error(1)
+	return value, err
+}
