@@ -84,7 +84,7 @@ func (c *CreateUserUseCaseImp) Exec(input user_interfaces_usecases.CreateUserUse
 	user.Password = nil
 	return &user_interfaces_usecases.CreateUserUseCaseOutput{
 		ID:        *user.ID,
-		Email:     user.UserName,
+		Email:     user.Email,
 		Username:  user.UserName,
 		CreatedAt: *user.CreatedAt,
 		UpdatedAt: *user.UpdatedAt,
