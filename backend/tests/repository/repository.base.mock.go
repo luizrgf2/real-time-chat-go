@@ -13,7 +13,10 @@ type RepositoryBaseMock[T any] struct {
 
 func (r *RepositoryBaseMock[T]) FindByID(ctx context.Context, id uint) (*T, error) {
 	args := r.Called(ctx, id)
-	return args.Get(0).(*T), args.Error(1)
+	if entity, ok := args.Get(0).(*T); ok {
+		return entity, args.Error(1)
+	}
+	return nil, args.Error(1)
 }
 
 func (r *RepositoryBaseMock[T]) Update(ctx context.Context, entity *T) error {
